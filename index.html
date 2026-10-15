@@ -6,23 +6,12 @@
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Find your shared moment. Accurate world clocks, city time conversion, and thoughtful meeting planning, powered by IANA time-zone data.">
   <title>TimeSync Global — Find your shared moment</title>
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/style.css">
-  <link rel="stylesheet" href="/google-theme.css">
-  <link rel="stylesheet" href="/flipclock.css">
-  <link rel="stylesheet" href="/currency.css">
-  <script src="/countdown.js" defer></script>
-  <script src="/flipclock.js" defer></script>
-  <script src="/currency.js" defer></script>
-  <script src="/app.js" defer></script>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./google-theme.css">
   <link rel="stylesheet" href="./flipclock.css">
-  <link rel="stylesheet" href="./currency.css">
   <script src="./countdown.js" defer></script>
   <script src="./flipclock.js" defer></script>
-  <script src="./currency.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -34,22 +23,10 @@
       <button class="nav" data-tab="converter">Time converter</button>
       <button class="nav" data-tab="planner">Meeting planner</button>
       <button class="nav" data-tab="flip">Flip clock</button>
-      <button class="nav" data-tab="currency">Currency</button>
     </nav>
     <button class="workspace-btn" id="workspace-button"><span class="avatar">MY</span><span id="workspace-label">My workspace</span><span class="chevron">⌄</span></button>
   </header>
   <main id="main">
-    <section id="currency-section" class="currency-section" hidden aria-labelledby="currency-title">
-      <div class="currency-heading"><div class="currency-eyebrow"><span></span> GOOGLE FINANCE QUOTES</div><h1 id="currency-title">A world of currencies.<br>One simple conversion.</h1><p>Convert with the latest available quote from Google Finance.</p></div>
-      <section class="currency-panel" aria-label="Currency converter"><div class="currency-panel-top"><span class="currency-symbol" aria-hidden="true">⇄</span><div><h2>Currency converter</h2><p>Choose an amount and a currency pair.</p></div><button class="button quiet" id="currency-refresh" type="button" aria-label="Refresh exchange rate">↻ <span>Refresh</span></button></div>
-        <form id="currency-form"><label class="currency-amount-label">Amount<input id="currency-amount" type="text" inputmode="decimal" value="1000" maxlength="21" autocomplete="off" required aria-describedby="currency-input-hint"></label><label>From<select id="currency-from" aria-label="From currency"></select></label><button class="currency-swap" id="currency-swap" type="button" aria-label="Swap currencies">⇄</button><label>To<select id="currency-to" aria-label="To currency"></select></label><button class="button primary currency-submit" type="submit">Convert</button></form>
-        <p id="currency-input-hint" class="currency-input-hint">Use a dot for decimals. No thousands separators.</p>
-        <div id="currency-result" class="currency-result" aria-live="polite"><p class="currency-empty">Choose your currencies to see the conversion.</p></div>
-        <div class="currency-source-bar"><span id="currency-status">Waiting for a quote</span><a id="currency-google-link" href="https://www.google.com/finance/quote/USD-PHP?hl=en" target="_blank" rel="noreferrer">View on Google ↗</a></div>
-      </section>
-      <div class="currency-details"><section><span class="currency-detail-icon" aria-hidden="true">◷</span><h2>Know when it was quoted</h2><p>Google’s quote time and our retrieval time are shown separately. Quotes may be delayed; we cache retrieved rates for 60 seconds.</p></section><section><span class="currency-detail-icon" aria-hidden="true">◎</span><h2>A clear source, every time</h2><p>Rates come from publicly displayed Google Finance currency quotes. Unsupported pairs or access problems are shown clearly.</p></section><section><span class="currency-detail-icon" aria-hidden="true">≠</span><h2>Your final rate may vary</h2><p>These are indicative quotes. Banks and transfer providers can apply their own rates, spreads, and fees.</p></section></div>
-      <p class="currency-note">Currency codes and minor units: ISO 4217 via SIX. Not every listed currency pair is available from Google. <a href="https://www.google.com/intl/en/googlefinance/disclaimer/" target="_blank" rel="noreferrer">Google Finance data information ↗</a></p>
-    </section>
     <section class="flip-clock" id="flip-section" hidden aria-labelledby="flip-title" data-theme="dark">
       <div class="flip-toolbar"><div class="flip-heading"><span class="flip-brand-icon" aria-hidden="true">◷</span><div><h1 id="flip-title">Flip clock</h1><span>A moment to focus.</span></div></div><button class="flip-button" id="flip-fullscreen" type="button" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg><span>Full screen</span></button></div>
       <div class="flip-mode-switch" role="group" aria-label="Flip clock mode"><button class="flip-mode active" id="flip-clock-mode" aria-pressed="true" type="button">Clock</button><button class="flip-mode" id="flip-timer-mode" aria-pressed="false" type="button"><span id="timer-mode-label">Timer</span><span class="timer-mode-dot" hidden></span></button></div>
