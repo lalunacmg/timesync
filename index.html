@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Find your shared moment. Accurate world clocks, city time conversion, and thoughtful meeting planning, powered by IANA time-zone data.">
+  <title>TimeSync Global — Find your shared moment</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/google-theme.css">
+  <link rel="stylesheet" href="/flipclock.css">
+  <link rel="stylesheet" href="/currency.css">
+  <script src="/countdown.js" defer></script>
+  <script src="/flipclock.js" defer></script>
+  <script src="/currency.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to workspace</a>
+  <header class="header">
+    <a href="/" class="brand" aria-label="TimeSync Global home"><span class="brand-mark">◎</span><span>TimeSync<span class="brand-light"> Global</span></span></a>
+    <nav aria-label="Main navigation">
+      <button class="nav active" data-tab="world">World clock</button>
+      <button class="nav" data-tab="converter">Time converter</button>
+      <button class="nav" data-tab="planner">Meeting planner</button>
+      <button class="nav" data-tab="flip">Flip clock</button>
+      <button class="nav" data-tab="currency">Currency</button>
+    </nav>
+    <button class="workspace-btn" id="workspace-button"><span class="avatar">MY</span><span id="workspace-label">My workspace</span><span class="chevron">⌄</span></button>
+  </header>
+  <main id="main">
+    <section id="currency-section" class="currency-section" hidden aria-labelledby="currency-title">
+      <div class="currency-heading"><div class="currency-eyebrow"><span></span> GOOGLE FINANCE QUOTES</div><h1 id="currency-title">A world of currencies.<br>One simple conversion.</h1><p>Convert with the latest available quote from Google Finance.</p></div>
+      <section class="currency-panel" aria-label="Currency converter"><div class="currency-panel-top"><span class="currency-symbol" aria-hidden="true">⇄</span><div><h2>Currency converter</h2><p>Choose an amount and a currency pair.</p></div><button class="button quiet" id="currency-refresh" type="button" aria-label="Refresh exchange rate">↻ <span>Refresh</span></button></div>
+        <form id="currency-form"><label class="currency-amount-label">Amount<input id="currency-amount" type="text" inputmode="decimal" value="1000" maxlength="21" autocomplete="off" required aria-describedby="currency-input-hint"></label><label>From<select id="currency-from" aria-label="From currency"></select></label><button class="currency-swap" id="currency-swap" type="button" aria-label="Swap currencies">⇄</button><label>To<select id="currency-to" aria-label="To currency"></select></label><button class="button primary currency-submit" type="submit">Convert</button></form>
+        <p id="currency-input-hint" class="currency-input-hint">Use a dot for decimals. No thousands separators.</p>
+        <div id="currency-result" class="currency-result" aria-live="polite"><p class="currency-empty">Choose your currencies to see the conversion.</p></div>
+        <div class="currency-source-bar"><span id="currency-status">Waiting for a quote</span><a id="currency-google-link" href="https://www.google.com/finance/quote/USD-PHP?hl=en" target="_blank" rel="noreferrer">View on Google ↗</a></div>
+      </section>
+      <div class="currency-details"><section><span class="currency-detail-icon" aria-hidden="true">◷</span><h2>Know when it was quoted</h2><p>Google’s quote time and our retrieval time are shown separately. Quotes may be delayed; we cache retrieved rates for 60 seconds.</p></section><section><span class="currency-detail-icon" aria-hidden="true">◎</span><h2>A clear source, every time</h2><p>Rates come from publicly displayed Google Finance currency quotes. Unsupported pairs or access problems are shown clearly.</p></section><section><span class="currency-detail-icon" aria-hidden="true">≠</span><h2>Your final rate may vary</h2><p>These are indicative quotes. Banks and transfer providers can apply their own rates, spreads, and fees.</p></section></div>
+      <p class="currency-note">Currency codes and minor units: ISO 4217 via SIX. Not every listed currency pair is available from Google. <a href="https://www.google.com/intl/en/googlefinance/disclaimer/" target="_blank" rel="noreferrer">Google Finance data information ↗</a></p>
+    </section>
+    <section class="flip-clock" id="flip-section" hidden aria-labelledby="flip-title" data-theme="dark">
+      <div class="flip-toolbar"><div class="flip-heading"><span class="flip-brand-icon" aria-hidden="true">◷</span><div><h1 id="flip-title">Flip clock</h1><span>A moment to focus.</span></div></div><button class="flip-button" id="flip-fullscreen" type="button" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg><span>Full screen</span></button></div>
+      <div class="flip-mode-switch" role="group" aria-label="Flip clock mode"><button class="flip-mode active" id="flip-clock-mode" aria-pressed="true" type="button">Clock</button><button class="flip-mode" id="flip-timer-mode" aria-pressed="false" type="button"><span id="timer-mode-label">Timer</span><span class="timer-mode-dot" hidden></span></button></div>
+      <div class="flip-stage"><div class="flip-location"><label for="flip-city">Live time in<select id="flip-city" aria-label="Flip clock city"></select></label><span id="flip-zone"></span></div><div class="flip-timer-heading" hidden><span>COUNTDOWN TIMER</span><h2 id="flip-timer-heading">A little time for yourself.</h2></div><div class="flip-face" id="flip-face" aria-hidden="true"></div><div class="flip-caption"><span class="flip-period" id="flip-period"></span><span id="flip-date">Syncing your clock…</span></div><output id="flip-readout" class="visually-hidden" role="timer" aria-live="off" aria-label="Live flip clock"></output><div class="flip-status" id="flip-status" role="status"><i></i><span>Connecting to your clock…</span></div>
+      <form id="flip-timer-form" class="flip-timer-form" hidden><fieldset class="timer-duration"><legend>Set duration</legend><label>Hours<input id="timer-hours" type="number" min="0" max="99" step="1" value="0" inputmode="numeric" required></label><label>Minutes<input id="timer-minutes" type="number" min="0" max="59" step="1" value="25" inputmode="numeric" required></label><label>Seconds<input id="timer-seconds" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" required></label></fieldset><div class="timer-presets" role="group" aria-label="Timer presets"><button type="button" data-minutes="5">5 min</button><button type="button" data-minutes="15">15 min</button><button type="button" data-minutes="25">25 min</button><button type="button" data-minutes="45">45 min</button></div><div class="timer-progress" role="progressbar" aria-label="Timer progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><div class="timer-actions"><button class="flip-button timer-primary" id="timer-toggle" type="submit">Start timer</button><button class="flip-button" id="timer-reset" type="button">Reset timer</button></div><label class="timer-sound"><input id="timer-sound" type="checkbox" checked> Completion sound</label><p id="timer-message" role="status">Choose a duration, then start your timer.</p><p class="timer-note">Continues while you use other views. Keep this page open for the completion alert.</p></form><div id="timer-announcement" class="visually-hidden" role="alert"></div></div>
+      <div class="flip-bottom"><div class="flip-settings" role="group" aria-label="Flip clock display settings"><button class="flip-button" id="flip-format" type="button" aria-pressed="false">24-hour time</button><button class="flip-button" id="flip-seconds" type="button" aria-pressed="true">Show seconds</button><button class="flip-button" id="flip-theme" type="button" aria-pressed="false">Light theme</button><button class="flip-button" id="flip-awake" type="button" aria-pressed="false">Keep screen awake</button></div><p class="flip-help">Live time, independent of your comparison date. <span><kbd>F</kbd> Full screen · <kbd>S</kbd> Seconds · <kbd>Esc</kbd> Back</span></p></div>
+    </section>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><h1 id="hero-title"><span class="wordmark-primary">TimeSync</span> <span class="wordmark-secondary">Global</span></h1><p>The right time. Anywhere.</p></div>
+      <form class="hero-search" id="hero-search-form" role="search"><label for="hero-city-search"><span data-icon="search"></span><input id="hero-city-search" type="search" aria-label="Search city or time zone" placeholder="Search for a city or time zone" maxlength="100" autocomplete="off"></label><button type="submit" aria-label="Search cities" title="Search cities"><span data-icon="globe"></span></button></form>
+      <div class="hero-actions"><button class="search-action" id="hero-compare">Compare cities</button><button class="search-action" id="hero-plan">Find a meeting time</button></div>
+      <div class="hero-clock"><span class="eyebrow" id="reference-label">YOUR REFERENCE TIME</span><div id="reference-time">—:—<small>—</small></div><span id="reference-date">Connecting your world…</span><div class="live-indicator"><span class="green-dot"></span><span id="live-label">Live world clock</span></div></div>
+    </section>
+
+    <div class="section-heading"><div><div class="overline" id="section-overline">WORLD CLOCK & TIME COMPARISON</div><h2 id="section-title">Your world clock</h2><p id="section-description">Compare local times and find your shared hours.</p></div><button class="button quiet" id="saved-button"><span data-icon="bookmark"></span> Saved meetings <span class="count" id="meeting-count">0</span></button></div>
+
+    <section class="comparison panel" aria-label="Time comparison workspace">
+      <div class="toolbar"><div class="date-controls"><button class="icon-button" id="prev-day" aria-label="Previous day"><span data-icon="left"></span></button><label class="date-label"><span data-icon="calendar"></span><input id="date-input" type="date" min="1800-01-01" max="2100-12-31" aria-label="Comparison date"></label><button class="icon-button" id="next-day" aria-label="Next day"><span data-icon="right"></span></button><button class="now-button" id="now-button"><span class="green-dot"></span> Now</button></div><div class="toolbar-actions"><div class="segmented" role="group" aria-label="Time format"><button id="format12" class="selected">12h</button><button id="format24">24h</button></div><button class="button primary" id="add-city"><span data-icon="plus"></span> Add a city</button></div></div>
+      <div id="cities" class="cities"><div class="loading">Loading your world…</div></div>
+      <div class="timeline-heading"><div><span data-icon="timeline"></span><h3>Find your shared hours</h3><span class="muted timeline-hint">Select a time to compare</span></div><div class="timeline-options"><button class="step-button" id="timeline-step" aria-pressed="false">30 min detail</button><div class="legend"><span><i class="legend-work"></i>Working hours</span><span><i class="legend-free"></i>After hours</span><span><i class="legend-night"></i>Night</span></div></div></div>
+      <p class="mobile-timeline-hint">Swipe the timeline to explore hours. Tap a time to compare.</p>
+      <div class="timeline-scroll" id="timeline-scroll" tabindex="0" aria-label="Scrollable time comparison"><div id="timeline" class="timeline"></div></div>
+      <div class="selection-bar"><div class="selection-icon" data-icon="clock"></div><div class="selection-copy"><strong id="selection-time">Select your shared moment</strong><span id="selection-availability">Times are calculated for the exact date selected.</span></div><button class="button primary" id="plan-selected"><span data-icon="calendar"></span> Plan a meeting <span data-icon="right"></span></button></div>
+    </section>
+
+    <section id="converter-section" class="panel converter-section" hidden aria-labelledby="converter-title"><div class="panel-header"><div><div class="overline">ONE MOMENT, EVERYWHERE</div><h3 id="converter-title">Convert a local date & time</h3><p>Choose the city where the time was given. We’ll align every clock above.</p></div><span class="feature-icon" data-icon="arrows"></span></div><form id="converter-form"><label>From location<select id="converter-city"></select></label><label>Local date & time<input id="local-input" type="datetime-local" min="1800-01-01T00:00" max="2100-12-31T23:59" required></label><label>If the time occurs twice<select id="disambiguation"><option value="reject">Ask me to choose</option><option value="earlier">Earlier occurrence</option><option value="later">Later occurrence</option></select></label><button class="button primary" type="submit">Convert time <span data-icon="right"></span></button></form><p id="converter-message" class="form-message" role="status"></p></section>
+
+    <section class="bottom-grid">
+      <div class="panel planner-panel" id="planner-section"><div class="panel-header"><div><div class="overline">LESS BACK-AND-FORTH, MORE TOGETHER</div><h3>A good time for everyone.</h3><p>Thoughtful suggestions across your cities’ working hours.</p></div><span class="feature-icon" data-icon="sparkles"></span></div><div class="planner-controls"><label>Meeting length<select id="duration"><option value="30">30 minutes</option><option value="60" selected>1 hour</option><option value="90">1 hour 30 minutes</option><option value="120">2 hours</option></select></label><button class="button quiet" id="find-times">Find best times <span data-icon="right"></span></button></div><div id="suggestions" class="suggestions"><p class="muted">Finding a little common ground…</p></div><p class="planner-note"><span data-icon="info"></span> Suggestions check the full meeting, including weekends and clock changes.</p></div>
+      <aside class="insight-panel"><div class="insight-top"><span class="feature-icon" data-icon="globe"></span><span class="small-caps">TIME YOU CAN TRUST</span></div><h3>Every time zone.<br>Every detail.</h3><p>Accurate local times, including daylight saving changes and half-hour offsets. Powered by the IANA Time Zone Database.</p><div class="data-badge"><span class="green-dot"></span><span id="data-version">IANA time-zone data</span><span data-icon="check"></span></div><button class="text-button" id="accuracy-button">How our time works <span data-icon="right"></span></button></aside>
+    </section>
+    <footer><span class="footer-brand">◎ <strong>TimeSync Global</strong><span>A shared moment, a smaller world.</span></span><span id="coverage">Worldwide city coverage</span><span>City data: <a href="https://www.geonames.org/" target="_blank" rel="noreferrer">GeoNames</a> · <button class="text-button" id="about-button">About & data</button></span></footer>
+  </main>
+  <dialog id="modal" aria-labelledby="modal-title"><div class="modal-head"><h2 id="modal-title"></h2><button class="icon-button" id="close-modal" aria-label="Close dialog"><span data-icon="close"></span></button></div><div id="modal-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <div id="connection-error" hidden role="alert"><strong>We couldn’t connect to your workspace.</strong><p>Keep the TimeSync server running and try again.</p><button class="button primary" id="reload">Try again</button></div>
+</body>
+</html>
